@@ -10,52 +10,64 @@ using AventStack.ExtentReports.Reporter;
 
 namespace MarsQA_2
 {
-    [TestFixture]
+   
     public class Program :CommonDriver
     {
         ManageListing manageListingObj = new ManageListing();
-        //public IWebDriver driver;
-
-        [OneTimeSetUp]
-        public void LoginFunction()
-        {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-
-            SignIn SignInObj =new SignIn();
-            SignInObj.LoginSteps(driver);
-        }
         [Test]
         public void A_CreateShareSkill()
         {
-            ShareSkill shareSkillObj = new ShareSkill();
-            shareSkillObj.CreateShareSkill(driver);
+            try
+            {
+
+                extenttestobj = extentreportobj.CreateTest("Adding Share Skill");
+                ShareSkill shareSkillObj = new ShareSkill();
+                shareSkillObj.CreateShareSkill(driver);
+                extenttestobj.Log(Status.Info, "Skill was saved succesfully");
+                extenttestobj.Log(Status.Pass, "Test Pass");
+                
+            }
+            catch (Exception)
+            {
+                extenttestobj.Log(Status.Fail, "Skill not Generated ");
+                extenttestobj.Log(Status.Skip, "Test was Skipped");
+            }
         }
         [Test]
         public void B_EditShareSkill()
         {
-
+            try
+            { 
+            extenttestobj = extentreportobj.CreateTest("Editing ShareSkill");
             manageListingObj.EditShareSkill(driver);
+            extenttestobj.Log(Status.Info, "Skill has been Edited");
+            extenttestobj.Log(Status.Pass, "Test Pass");
+            }
+            catch(Exception)
+            {
+               extenttestobj.Log(Status.Fail, "Skill not Edited ");
+               extenttestobj.Log(Status.Skip, "Test was Skipped");
+            }
         }
 
         [Test]
         public void C_DeleteShareSkill()
         {
-            manageListingObj.DeleteSkill(driver);
+            try
+            {
+                extenttestobj = extentreportobj.CreateTest("Deleting ShareSkill");
+                manageListingObj.DeleteSkill(driver);
+                extenttestobj.Log(Status.Info, "Skill has been Deleted");
+                extenttestobj.Log(Status.Pass, "Test Pass");
+            } 
+
+            catch (Exception)
+            {
+              extenttestobj.Log(Status.Fail, "Skill not Deleted ");
+              extenttestobj.Log(Status.Skip, "Test was Skipped");
+            }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
     }
 }

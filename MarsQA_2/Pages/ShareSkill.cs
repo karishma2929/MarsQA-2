@@ -73,17 +73,12 @@ namespace MarsQA_2.Pages
             //Upload file using AutoIt 
            IWebElement Open = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
             Open.Click();
-            /*  Actions act = new Actions(driver);
-              act.MoveToElement(Open).Perform();
-              Thread.Sleep(1000);
-              Open.SendKeys("C:\\Users\\karis\\OneDrive\\Desktop\\Karishma.txt"); */
-
-             AutoItX3 autoItObj = new AutoItX3();
-             autoItObj.WinActivate("Open");
-             Thread.Sleep(1000);
-             autoItObj.Send("C:\\Users\\karis\\OneDrive\\Desktop\\Karishma.txt");
-             Thread.Sleep(1000);
-             autoItObj.Send("{ENTER}"); 
+            AutoItX3 autoItObj = new AutoItX3();
+            autoItObj.WinActivate("Open");
+            Thread.Sleep(1000);
+            autoItObj.Send("C:\\Users\\karis\\OneDrive\\Desktop\\Karishma.txt");
+            Thread.Sleep(1000);
+            autoItObj.Send("{ENTER}"); 
 
             //Click on Active/Hidden option
             driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[10]/div[2]/div/div[1]/div/input")).Click();
@@ -96,7 +91,6 @@ namespace MarsQA_2.Pages
             IWebElement ShareSkillRecord = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]"));
             Assert.That(ShareSkillRecord.Text == "Test Karishma 1", "Skill is not the Same");
 
- 
         }
     }
           

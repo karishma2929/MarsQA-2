@@ -5,21 +5,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using AventStack.ExtentReports.Reporter;
+using AventStack.ExtentReports;
+using NUnit.Framework;
+using MarsQA_2.Pages;
 
 namespace MarsQA_2.Utilities
 {
-    public class CommonDriver
+    public class CommonDriver   
     {
-        public static IWebDriver driver;
+       // For Extent Reports:
+       public static ExtentReports extentreportobj;
+       public static ExtentHtmlReporter htmlreporterobj;
+       public static ExtentTest extenttestobj;
+       //For Common driver
+       public static IWebDriver driver;
 
-        public void OpenChromeBrowser()
+        [OneTimeSetUp]
+        public void LoginFunction()
         {
+            extentreportobj = new ExtentReports();
+            htmlreporterobj = new ExtentHtmlReporter(@"C:\IndustryConnect\MarsTask_2\MarsQA-2\MarsQA_2\ExtentReports\test.html");
+            extentreportobj.AttachReporter(htmlreporterobj);
+
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
+
+            SignIn SignInObj = new SignIn();
+            SignInObj.LoginSteps(driver);
         }
-        public void CloseTestRun()
+
+        [OneTimeTearDown]
+        public void CloseTest()
         {
-            driver.Quit();
+            extentreportobj.Flush();
+            driver.Close();
         }
 
 

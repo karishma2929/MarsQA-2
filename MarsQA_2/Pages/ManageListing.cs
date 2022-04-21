@@ -32,6 +32,7 @@ namespace MarsQA_2.Pages
 
         public void DeleteSkill(IWebDriver driver)
         {
+            Thread.Sleep(1000);
             //Go to Manage Listing  
             driver.FindElement(By.XPath("//*[@id='listing-management-section']/section[1]/div/a[3]")).Click();
             Thread.Sleep(1000);
