@@ -19,10 +19,11 @@ namespace MarsQA_2
         {
             try
             {
-
                 extenttestobj = extentreportobj.CreateTest("Adding Share Skill");
+
                 ShareSkill shareSkillObj = new ShareSkill();
                 shareSkillObj.CreateShareSkill(driver);
+
                 extenttestobj.Log(Status.Info, "Skill was saved succesfully");
                 extenttestobj.Log(Status.Pass, "Test Pass");
                 

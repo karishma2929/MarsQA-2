@@ -15,11 +15,13 @@ namespace MarsQA_2.Utilities
 {
     public class CommonDriver   
     {
-       // For Extent Reports:
-       public static ExtentReports extentreportobj;
+     //For Screen shot;
+        public static string screenshotDirectory;
+     // For Extent Reports:
+       public static ExtentReports extentreportobj; 
        public static ExtentHtmlReporter htmlreporterobj;
        public static ExtentTest extenttestobj;
-       //For Common driver
+     //For Common driver
        public static IWebDriver driver;
 
         [OneTimeSetUp]
@@ -41,6 +43,15 @@ namespace MarsQA_2.Utilities
         {
             extentreportobj.Flush();
             driver.Close();
+        }
+
+        public void takeScreenShot(IWebDriver driver)
+        {
+            string screenshotFileName = Directory.GetParent(@"../../../").FullName
+                 + Path.DirectorySeparatorChar + "Screenshot"
+                 + Path.DirectorySeparatorChar + "Screentshot_" + DateTime.Now.ToString("ddMMyyyy HHmmss") + ".png";
+            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+            ss.SaveAsFile(screenshotFileName, ScreenshotImageFormat.Png);
         }
 
 

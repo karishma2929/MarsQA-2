@@ -8,11 +8,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Interactions;
 using AutoItX3Lib;
+using System.IO;
+using MarsQA_2.Utilities;
 
 namespace MarsQA_2.Pages
 {
     internal class ShareSkill
     {
+        CommonDriver CommonDriverObj = new CommonDriver();
         public void CreateShareSkill(IWebDriver driver)
         {
             //Click on ShareSkill Button
@@ -69,9 +72,9 @@ namespace MarsQA_2.Pages
             SkillExchangeTag.SendKeys("Talent");
             SkillExchangeTag.SendKeys(Keys.Enter);
             //Enter the amount for Credit  ___ Case2
-
+            CommonDriverObj.takeScreenShot(driver);
             //Upload file using AutoIt 
-           IWebElement Open = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
+            IWebElement Open = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
             Open.Click();
             AutoItX3 autoItObj = new AutoItX3();
             autoItObj.WinActivate("Open");
@@ -86,6 +89,7 @@ namespace MarsQA_2.Pages
             driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[11]/div/input[1]")).Click();
 
             Thread.Sleep(2000);
+            CommonDriverObj.takeScreenShot(driver);
 
             //Check if the Share Skill record was created.
             IWebElement ShareSkillRecord = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]"));
