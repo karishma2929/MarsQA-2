@@ -1,6 +1,7 @@
 ﻿
 
 
+using MarsQA_2.Excel_Data_Reader;
 using MarsQA_2.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -26,16 +27,22 @@ namespace MarsQA_2.Pages
          try
          {
            
-           // Click on Sign In Button
+          // Click on Sign In Button
              driver.FindElement(By.XPath("//*[@id='home']/div/div/div[1]/div/a")).Click();
-          // get the excel data reader
-         // Identify Username text box and enter user nanem
-           driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[1]/input")).SendKeys("karishmanaik78@gmail.com");
-         //Identify Passwor and enetr passwrod
-           driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[2]/input")).SendKeys("123123");
-         // Click login button.
-           driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[4]/button")).Click();
-           Thread.Sleep(2000);
+
+          // Identify Username text box and enter user nanem
+                IWebElement emailTextBox = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[1]/input"));
+                string userName = ExcelReader.ReadData(2, "UserName");
+                emailTextBox.SendKeys(userName);
+
+          //Identify Password and enetr passwrod
+                IWebElement passwordTextbox = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[2]/input"));
+                string password = ExcelReader.ReadData(2, "Password");
+                passwordTextbox.SendKeys(password);
+
+          // Click login button.
+                driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[4]/button")).Click();
+                Thread.Sleep(2000);
 
          }
          catch (Exception)

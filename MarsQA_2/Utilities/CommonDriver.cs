@@ -10,6 +10,7 @@ using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using NUnit.Framework;
 using MarsQA_2.Pages;
+using MarsQA_2.Excel_Data_Reader;
 
 namespace MarsQA_2.Utilities
 {
@@ -23,10 +24,17 @@ namespace MarsQA_2.Utilities
        public static ExtentTest extenttestobj;
      //For Common driver
        public static IWebDriver driver;
+     //For Excel reader
+        public static FileStream stream;
 
         [OneTimeSetUp]
         public void LoginFunction()
         {
+            string fileName = @"C:\IndustryConnect\MarsTask_2\MarsQA-2\MarsQA_2\Excel_Use_Data\Excel_Test_data.xlsx";
+            //open file and returns as stream
+            stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
+            ExcelReader.ReadDataTable(stream, "LoginSheet");
+
             extentreportobj = new ExtentReports();
             htmlreporterobj = new ExtentHtmlReporter(@"C:\IndustryConnect\MarsTask_2\MarsQA-2\MarsQA_2\ExtentReports\test.html");
             extentreportobj.AttachReporter(htmlreporterobj);

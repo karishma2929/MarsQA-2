@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ExcelData\**" />
+    <EmbeddedResource Remove="ExcelData\**" />
+    <None Remove="ExcelData\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="AutoItX3Lib">
       <VersionMinor>0</VersionMinor>
       <VersionMajor>1</VersionMajor>
@@ -31,7 +37,6 @@
 
   <ItemGroup>
     <Folder Include="ExtentReports\" />
-    <Folder Include="ExcelData\" />
     <Folder Include="Screenshot\" />
   </ItemGroup>
 
