@@ -10,72 +10,92 @@ using OpenQA.Selenium.Interactions;
 using AutoItX3Lib;
 using System.IO;
 using MarsQA_2.Utilities;
+using MarsQA_2.Excel_Data_Reader;
+using SeleniumExtras.PageObjects;
 
 namespace MarsQA_2.Pages
 {
     internal class ShareSkill
     {
         CommonDriver CommonDriverObj = new CommonDriver();
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[1]/div/div[2]/a")] IWebElement ShareSkillButton;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input")] IWebElement Titletextbox;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[2]/div/div[2]/div[1]/textarea")] IWebElement Descriptiontextbox;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div/select")] IWebElement CategoryDropdown;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div/select/option[6]")] IWebElement ProgrammingOption;  
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[2]/div[1]/select")] IWebElement SubCategoryDropdown;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[2]/div[1]/select/option[4]")] IWebElement SubCategoryOption;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[4]/div[2]/div/div/div/div/input")] IWebElement Tag;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[4]/div[2]/div/div/div/div/input")] IWebElement ServiceType;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[6]/div[2]/div/div[2]/div/input")] IWebElement LocationType;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[1]/div[2]/input")] IWebElement StartDate;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[1]/div[4]/input")] IWebElement EndDate;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[2]/div[1]/div/input")] IWebElement AvailableDays;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[3]/div[2]/input")] IWebElement AvailableDayStartTime;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[3]/div[3]/input")]IWebElement AvailableDayEndTime;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[8]/div[2]/div/div[1]/div/input")] IWebElement SkillTrade;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input")] IWebElement SkillExchangeTag;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i")] IWebElement Uploadfile;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[10]/div[2]/div/div[1]/div/input")] IWebElement ActiveButton;
+        [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[11]/div/input[1]")] IWebElement SaveButton;
+        
         public void CreateShareSkill(IWebDriver driver)
         {
-            //Click on ShareSkill Button
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/div[2]/a")).Click();
-            //Enter the Title in textbox
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input")).SendKeys("Test Karishma 1");
-            //Enter the Description in textbox
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[2]/div/div[2]/div[1]/textarea")).SendKeys("Description");
-            //Click on Category Dropdown
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div/select")).Click();
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[4]")).Click();
-            //Click on SubCategory Dropdown
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[2]/div[1]/select")).Click();
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[2]/div[1]/select/option[5]")).Click();
-            //Enter Tag names in textbox
-            IWebElement TagEnter = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[4]/div[2]/div/div/div/div/input"));
-            TagEnter.SendKeys("Tag");
-            TagEnter.SendKeys(Keys.Enter);
-            //Select the Service type
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[5]/div[2]/div[1]/div[1]/div/input")).Click();
-            //Select the Location Type
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[6]/div[2]/div/div[2]/div/input")).Click();
-            //Click on Start Date dropdown
-            IWebElement StartDate = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[1]/div[2]/input"));
-            StartDate.Click();
-            StartDate.Click();
-            StartDate.SendKeys("20");
-            StartDate.SendKeys("04");
-            StartDate.SendKeys("2025");
-            //Click on End Date dropdown
-            IWebElement EndDate = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[1]/div[4]/input"));
-            EndDate.Click();
-            EndDate.Click();
-            EndDate.SendKeys("20");
-            EndDate.SendKeys("06");
-            EndDate.SendKeys("2025");
-            //Storing the table of available days
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[2]/div[1]/div/input")).Click();
-            //Click on StartTime dropdown
-            IWebElement StartTime = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[2]/div[2]/input"));
-            //Storing the starttime 
-            StartTime.SendKeys("08");
-            StartTime.SendKeys("10");
-            StartTime.SendKeys("am");
-            //Click on EndTime dropdown
-            IWebElement EndTime = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[2]/div[3]/input"));
-            EndTime.SendKeys("10");
-            EndTime.SendKeys("40");
-            EndTime.SendKeys("am");
-            //Click on Skill Trade option
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[8]/div[2]/div/div[1]/div/input")).Click();
-            //Enter Skill Exchange
-            IWebElement SkillExchangeTag = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input"));
-            SkillExchangeTag.SendKeys("Talent");
+            PageFactory.InitElements(driver,this);
+
+            ShareSkillButton.Click();   //Done
+            string title = ExcelReader.ReadData(1, "Title");  //Done
+            Titletextbox.SendKeys(title);
+
+            string description = ExcelReader.ReadData(1, "Description"); //Done
+            Descriptiontextbox.SendKeys(description);
+            
+            CategoryDropdown.Click();      //Done
+            string category = ExcelReader.ReadData(1, "Category");
+            ProgrammingOption.Click();
+
+            SubCategoryDropdown.Click();
+            SubCategoryOption.Click();
+            
+            
+            Tag.Click();
+            string tagName = ExcelReader.ReadData(1, "Tags");
+            Tag.SendKeys(tagName);
+            Tag.SendKeys(Keys.Enter);
+
+            ServiceType.Click();  
+            LocationType.Click();
+
+            string startDateCol = ExcelReader.ReadData(1, "Start Date");
+            StartDate.SendKeys(startDateCol);
+
+            string endDateCol = ExcelReader.ReadData(1, "End Date");
+            EndDate.SendKeys(endDateCol);
+
+            AvailableDays.Click();
+
+            AvailableDayStartTime.Click();
+            string startTimeCol = ExcelReader.ReadData(1, "Start time");
+            AvailableDayStartTime.SendKeys(startTimeCol);
+
+           
+            AvailableDayEndTime.Click();
+            string endTimeCol = ExcelReader.ReadData(1, "End time");
+            AvailableDayEndTime.SendKeys(endTimeCol);
+            
+            SkillTrade.Click();
+
+
+            Thread.Sleep(2000);
+            SkillExchangeTag.Click();
+            string skillExchangeCol = ExcelReader.ReadData(1, "Skill Exchange");
+            SkillExchangeTag.SendKeys(skillExchangeCol);
             SkillExchangeTag.SendKeys(Keys.Enter);
-            //Enter the amount for Credit  ___ Case2
+            Thread.Sleep(2000);
             CommonDriverObj.takeScreenShot(driver);
-            //Upload file using AutoIt 
-            IWebElement Open = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
-            Open.Click();
+
+            //Uploadfile using AutoIt 
+            Uploadfile.Click();
             AutoItX3 autoItObj = new AutoItX3();
             autoItObj.WinActivate("Open");
             Thread.Sleep(1000);
@@ -83,10 +103,9 @@ namespace MarsQA_2.Pages
             Thread.Sleep(1000);
             autoItObj.Send("{ENTER}"); 
 
-            //Click on Active/Hidden option
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[10]/div[2]/div/div[1]/div/input")).Click();
-            //Click on Save button
-            driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[11]/div/input[1]")).Click();
+            ActiveButton.Click();
+            
+            SaveButton.Click();
 
             Thread.Sleep(2000);
             CommonDriverObj.takeScreenShot(driver);

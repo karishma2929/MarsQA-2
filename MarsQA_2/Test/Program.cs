@@ -7,18 +7,36 @@ using MarsQA_2.Utilities;
 using AventStack.ExtentReports;
 using System.IO;
 using AventStack.ExtentReports.Reporter;
+using MarsQA_2.Excel_Data_Reader;
 
 namespace MarsQA_2
 {
-   
+   [TestFixture]
     public class Program :CommonDriver
     {
         ManageListing manageListingObj = new ManageListing();
+        
         [Test]
-        public void A_CreateShareSkill()
+        public void ExcelReadermethod()
         {
             try
             {
+                ExcelReader.ClearData();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
+        [Test]
+        public void A_CreateShareSkill()
+        {
+            ExcelReader.ReadDataTable(stream, "ShareSkill");
+            try
+            {
+               
                 extenttestobj = extentreportobj.CreateTest("Adding Share Skill");
 
                 ShareSkill shareSkillObj = new ShareSkill();
